@@ -1,207 +1,37 @@
 <!DOCTYPE HTML>
-<html lang="en">
-
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="https://images.app.goo.gl/gWqavW3WYGL97bW58" sizes="196x196" class="next-head">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="lib/style.css">
+<html>
+  <head>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.1/leaflet.css" rel="stylesheet" />
+  </head>
+  
+  <body>
+  <div style="position: relative">
+    <div id="map" style="height: 100vh"></div>
+    <script>
     
-
-</head>
-
-<body>
-
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="/">Home</a>
-                </li>
-                <li>
-                    <a href="/about">JSA</a>
-                </li>
-                <li>
-                    <a href="/wrld">Map</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="buttons">
-        <button class="trigger-push">Trigger Push Notification</button>
-    </div>
-
-    <div class="container">
-        <div class="col-sm-4">
-            <h3>NodeJS/Express Post/Get Ajax</h3>
-            <div>
-                <form id="customerForm">
-                    <div class="form-group">
-                        <label for="firstname">FirstName:</label>
-                        <input type="text" class="form-control" id="firstname" placeholder="Enter FirstName" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastname">LastName:</label>
-                        <input type="text" class="form-control" id="lastname" placeholder="Enter LastName" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="age">Age:</label>
-                        <input type="text" class="form-control" id="age" placeholder="Enter Age" required/>
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-            </div>
-            <div id="postResultDiv">
-            </div>
-            <br>
-            <div style="margin-bottom:20px; padding:10px; background-color:#336699; color:white;">
-                <p>Type some text to search the table for
-                    <strong>Id</strong>,
-                    <strong>Name</strong>,
-                    <strong>Age</strong>,
-                    <strong>Street</strong>,
-                    <strong>PostCode</strong>:</p>
-                <input class="form-control" id="inputFilter" type="text" placeholder="Search.." />
-            </div>
-            <div>
-                <button id="allCustomers" type="button" class="btn btn-default">Customers</button>
-                <table id="customerTable" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Age</th>
-                            <th>Create Date</th>
-                            <th>Update Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-
-                <div id="getResultDiv">
-                    <ul class="list-group">
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="lib/main.js"></script>
-
-</body>
-<script>
-    $(document).ready(function () {
-
-        $("#allCustomers").click(function (event) {
-            event.preventDefault();
-            ajaxGet();
+      var map = L.Wrld.map("map", "956198da4d9cfb1994cc71da58e0196f", {
+        center: [37.7858, -122.401],
+        zoom: 16
+      });
+   
+      setTimeout(function() {
+      	map.setCameraHeadingDegrees(45).setCameraTiltDegrees(20);
+      }, 1000);
+      setTimeout(function() {
+      	map.setView([37.802, -122.4058], 18, {
+          headingDegrees: 270,
+          animate: true,
+          durationSeconds:5
         });
+      }, 5000);
+      setTimeout(function() {
+      	var bounds = L.latLngBounds([37.786647, -122.407015], [37.798886, -122.395116]);
+      	map.fitBounds(bounds);
+      }, 5000);
+   
+    </script>
 
-        $("#customerForm").submit(function (event) {
-            event.preventDefault();
-            ajaxPost();
-        });
-
-        function ajaxGet() {
-            $.ajax({
-                type: "GET",
-                url: window.location.origin + "/api/getAllCustomers",
-                // success: function (result) {
-                //     $('#getResultDiv ul').empty();
-                //     var custList = "";
-                //     $.each(result, function (i, customer) {
-                //         $('#getResultDiv .list-group').append(customer.firstname + " " + customer.lastname + "<br>")
-                //     });
-                //     console.log("Success: ", result);
-                // },
-                success: function (result) {
-                    $.each(result, function (i, customer) {
-
-                        var customerRow = '<tr>' +
-                            '<td>' + customer.id + '</td>' +
-                            '<td>' + customer.firstname.toUpperCase() + '</td>' +
-                            '<td>' + customer.lastname + '</td>' +
-                            '<td>' + customer.age + '</td>' +
-                            '<td>' + customer.createdAt + '</td>' +
-                            '</tr>';
-
-                        $('#customerTable tbody').append(customerRow);
-
-                    });
-
-                    $("#customerTable tbody tr:odd").addClass("info");
-                    $("#customerTable tbody tr:even").addClass("success");
-                },
-                error: function (e) {
-                    $("#getResultDiv").html("<strong>Error</strong>");
-                    console.log("ERROR: ", e);
-                }
-            });
-        }
-
-        function ajaxPost() {
-
-            // PREPARE FORM DATA
-            var formData = {
-                firstname: $("#firstname").val(),
-                lastname: $("#lastname").val(),
-                age: $("#age").val(),
-            }
-
-            // DO POST
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: window.location.origin + "/api/addCustomer",
-                data: JSON.stringify(formData),
-                dataType: 'json',
-                success: function (customer) {
-                    $("#postResultDiv").html("<p>" +
-                        "Post Successfully! <br>" +
-                        "--->" + JSON.stringify(customer) + "</p>");
-                },
-                error: function (e) {
-                    alert("Error!")
-                    console.log("ERROR: ", e);
-                }
-            });
-
-            // Reset FormData after Posting
-            resetData();
-
-        }
-
-        function resetData() {
-            $("#firstname").val("");
-            $("#lastname").val("");
-        }
-
-        // do Filter on View
-        $("#inputFilter").on("keyup", function () {
-            var inputValue = $(this).val().toLowerCase();
-            $("#customerTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
-            });
-        });
-
-    })
-</script>
-
-<script>
-    // if ('serviceWorker' in navigator) {
-    //     window.addEventListener('load', function() {
-    //         navigator.serviceWorker.register('lib/sw.js').then(response => {
-    //       console.log('Service Worker registered.')
-    //     }).catch(error => {
-    //       console.error(error)
-    //     })
-    //     });
-    // }
-</script>
-
+  </div>
+  </body>
 </html>
