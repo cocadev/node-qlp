@@ -1,5 +1,5 @@
 export default (sequelize, Sequelize) => {
-  const User = sequelize.define('users', {
+  const User = sequelize.define('hey_users', {
     uid: {
       type: Sequelize.STRING,
       unique: {

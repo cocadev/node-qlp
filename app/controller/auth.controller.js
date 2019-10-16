@@ -7,6 +7,9 @@ const User = db.user;
 const Role = db.role;
 
 export const signup = (req, res) => {
+
+
+  console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
   
   // Save User to Database
   if(!req.body.password_digest){
@@ -26,7 +29,7 @@ export const signup = (req, res) => {
       res.status(200).send({ "success": true, "message": "User registered successfully!", "user": user });
     })
     .catch(function (err) {
-      res.status(400).send({ "success": false, "message": err.errors[0].message });
+      res.status(400).send({ "success": false, "message": err });
     })
 }
 

@@ -10,7 +10,7 @@ import setupStartServer from './app/setup/start-server'
 const app = express();
 
 setupLoadModules(app)
-setupDB(app)
+// setupDB(app)
 setupRouter(app)
 setupStartServer(app)
 
