@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export const NODE_ENV = 'development'
-export const PORT = 5555
+export const PORT = 5545
 export const DATABASE = 'qx_qlp'
 export const USERNAME = 'qlp_users'
 export const PASSWORD = 'KuttA_2021_DhakA'
