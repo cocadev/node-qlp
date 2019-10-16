@@ -6,9 +6,9 @@ dotenv.config()
 export const NODE_ENV = 'development'
 export const PORT = 5000
 export const DATABASE = 'qx_qlp'
-export const USERNAME = 'root'
-export const PASSWORD = ''
-export const HOST = 'localhost'
+export const USERNAME = 'qlp_users'
+export const PASSWORD = 'KuttA_2021_DhakA'
+export const HOST = '0.0.0.0'
 export const DIALECT = 'mysql'
 export const SECRET = 'grokonez-super-secret-key'
 export const ROLES = ['INVESTOR', 'ADMIN']
