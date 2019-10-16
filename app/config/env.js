@@ -14,7 +14,6 @@ export const SECRET = 'grokonez-super-secret-key'
 export const ROLES = ['INVESTOR', 'ADMIN']
 export const POOL = {
   limit: 100,
-  min: 0,
   acquire: 30000,
   idle: 10000
 };
