@@ -14,7 +14,10 @@ export default function (app) {
     router.use(function (req, res, next) { console.log("/" + req.method); next(); });
 
     router.get("/", function (req, res) {
-        res.sendFile(path.join(__dirname, '..', '..', 'views', 'index.html'))
+        res.status(200).json({
+            "success": true,
+            "message": "Welcome Node Mysql!"
+          });
     });
 
     app.use("/", router);
