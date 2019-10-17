@@ -1,6 +1,4 @@
 import express from 'express'
-import path from 'path'
-
 import auth_route from '../../app/route/auth.route.js'
 import initial_route from '../../app/route/init.route.js'
 
