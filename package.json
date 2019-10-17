@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node server.js",
-    "babel-version": "babel --version"
+    "start": "babel-node server.js"
   },
   "keywords": [
     "Nodejs",
@@ -35,14 +34,7 @@
     "sequelize": "^5.16.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.5.5",
-    "@babel/core": "7.5.5",
-    "@babel/node": "^7.6.3",
-    "@babel/plugin-transform-runtime": "7.5.5",
-    "@babel/preset-env": "7.5.5",
-    "@babel/runtime": "7.5.5",
-    "babel-loader": "^7.1.2",
     "nodemon": "^1.19.4",
-    "webpack": "^2.2.0-rc.0"
+    "babel-cli": "^6.26.0"
   }
 }
