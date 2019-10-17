@@ -1,5 +1,5 @@
 export default (sequelize, Sequelize) => {
-  const User = sequelize.define('hey_users', {
+  const User = sequelize.define('users', {
     uid: {
       type: Sequelize.STRING,
       unique: {
@@ -72,7 +72,11 @@ export default (sequelize, Sequelize) => {
           msg: "Role should be one of ADMIN, INVESTOR"
         }
       }
-    },
+    }, 
+  }, {
+    // freezeTableName: true, // Model tableName will be the same as the model name
+    timestamps: false,
+    underscored: true
   })
 
   return User;

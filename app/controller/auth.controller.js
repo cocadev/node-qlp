@@ -7,9 +7,6 @@ const User = db.user;
 const Role = db.role;
 
 export const signup = (req, res) => {
-
-
-  console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
   
   // Save User to Database
   if(!req.body.password_digest){
@@ -24,12 +21,14 @@ export const signup = (req, res) => {
       password_digest: bcrypt.hashSync(req.body.password_digest, 8),
       role: req.body.role,
       eth_addr: req.body.eth_addr,
+      created_at: new Date(),
+      updated_at: new Date()
     })
     .then(function (user) {
       res.status(200).send({ "success": true, "message": "User registered successfully!", "user": user });
     })
     .catch(function (err) {
-      res.status(400).send({ "success": false, "message": err });
+      res.status(400).send({ "success": false, "message": err.message });
     })
 }
 

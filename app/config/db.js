@@ -4,7 +4,7 @@ import model_user from '../model/user.model.js'
 
 import * as ENV from './env'
 
-const sequelize = new Sequelize(ENV.DATABASE, 'root', '', {
+const sequelize = new Sequelize(ENV.DATABASE, ENV.USERNAME, ENV.PASSWORD, {
   host:             ENV.HOST,
   dialect:          ENV.DIALECT,
   operatorsAliases: false,
