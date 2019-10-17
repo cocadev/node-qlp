@@ -70,7 +70,7 @@ export const signin = (req, res) => {
 export const investorContent = (req, res) => {
   User.findOne({
     where: { id: req.userId },
-    attributes: ['username', 'email', 'role'],
+    // attributes: ['username', 'email', 'role'],
     // include: [{
     //   model: Role,
     //   attributes: ['id', 'username'],
